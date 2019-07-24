@@ -135,8 +135,43 @@ CharacterStats.prototype.takeDamage=function(){
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+  function Villain(v){
+    Humanoid.call(this, v);
+    
+   }
+   Villain.prototype = Object.create(Humanoid.prototype);
+   
+   function Hero(s){
+    Humanoid.call(this, s);
+    
+   }
+  Hero.prototype = Object.create(Humanoid.prototype);
+   
+  Humanoid.prototype.attack=function(enemy, power){
+    let point=0;
+    if(power=="final hit"){
+      point=5;
+    }else{
+      point =2;
+    }
+    enemy.healthPoints -=point;
+    if(enemy.healthPoints>0){
+      return`${this.name} attacks ${enemy.name},${enemy.name}'health point is ${enemy.healthPoints}. `;
+    }else{
+      return ` ${enemy.name} dies`;
+    }
+  };
 
-  const Troll = new Humanoid({
+  
+  GameObject.prototype.recover=function(){
+    
+    this.healthPoints +=3;
+    
+      return`${this.name}'s health point +3, ${this.name}'health point is ${this.healthPoints}. `;
+    
+  };
+
+const Troll = new Villain({
     createdAt: new Date(),
     dimensions: {
       length: 1,
@@ -152,7 +187,7 @@ CharacterStats.prototype.takeDamage=function(){
     language: 'Elvish',
   });
 
-  const Worgen = new Humanoid({
+  const Worgen = new Hero({
     createdAt: new Date(),
     dimensions: {
       length: 1,
@@ -168,27 +203,8 @@ CharacterStats.prototype.takeDamage=function(){
     language: 'Elvish',
   });
 
-  GameObject.prototype.attack=function(enemy, power){
-    let point=0;
-    if(power=="final hit"){
-      point=5;
-    }else{
-      point =2;
-    }
-    enemy.healthPoints -=point;
-    if(enemy.healthPoints>0){
-      return`${this.name} attacks ${enemy.name},${enemy.name}'health point is ${enemy.healthPoints}. `;
-    }else{
-      return ` ${enemy.name} dies`;
-    }
-  };
-  GameObject.prototype.recover=function(){
-    
-    this.healthPoints +=3;
-    
-      return`${this.name}'s health point +3, ${this.name}'health point is ${this.healthPoints}. `;
-    
-  };
+  
+  
   console.log("\nstretch problem"); 
   console.log(Worgen.attack(Troll,"regular attack")); 
   console.log(Troll.attack(Worgen,"regular attack"));
