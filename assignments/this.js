@@ -45,6 +45,10 @@ function Friend(p){
 }
 const myFd = new Friend({name:"MH",age:27});
 myFd.personalInfo();
+
+
+
+
 // Principle 4: Explicit binding
 
 // code example for Explicit Binding

@@ -18,13 +18,8 @@
 function GameObject(g){
   this.createdAt = g.createdAt;
   this.name = g.name;
-  this.dimensions = 
-  {
-     length:g.l,
-    width:g.w,
-    height: g.h,
-    
-  }
+  this.dimensions = g.dimensions;
+  
   };
 
 GameObject.prototype.destroy=function(){
